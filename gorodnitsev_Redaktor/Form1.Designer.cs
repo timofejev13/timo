@@ -44,11 +44,15 @@
             this.solidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dashDotDotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fuguresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eclipseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.line = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eclipse = new System.Windows.Forms.ToolStripMenuItem();
             this.picDrawingSurface = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -59,15 +63,14 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.fuguresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDrawingSurface)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip2
@@ -149,7 +152,7 @@
             this.undoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("undoToolStripMenuItem.Image")));
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.UndoToolStripMenuItem_Click);
             // 
@@ -159,7 +162,7 @@
             this.renoToolStripMenuItem.Name = "renoToolStripMenuItem";
             this.renoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Z)));
-            this.renoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.renoToolStripMenuItem.Text = "Redo";
             this.renoToolStripMenuItem.Click += new System.EventHandler(this.RenoToolStripMenuItem_Click);
             // 
@@ -169,7 +172,7 @@
             this.styleToolStripMenuItem,
             this.colorToolStripMenuItem});
             this.penToolStripMenuItem.Name = "penToolStripMenuItem";
-            this.penToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.penToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.penToolStripMenuItem.Text = "Pen";
             // 
             // styleToolStripMenuItem
@@ -178,9 +181,11 @@
             this.solidToolStripMenuItem,
             this.dotToolStripMenuItem,
             this.dashDotDotToolStripMenuItem,
-            this.fuguresToolStripMenuItem});
+            this.fuguresToolStripMenuItem,
+            this.eclipseToolStripMenuItem,
+            this.line});
             this.styleToolStripMenuItem.Name = "styleToolStripMenuItem";
-            this.styleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.styleToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.styleToolStripMenuItem.Text = "Style";
             // 
             // solidToolStripMenuItem
@@ -201,34 +206,58 @@
             // 
             // dashDotDotToolStripMenuItem
             // 
+            this.dashDotDotToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dashDotDotToolStripMenuItem.Image")));
             this.dashDotDotToolStripMenuItem.Name = "dashDotDotToolStripMenuItem";
             this.dashDotDotToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.dashDotDotToolStripMenuItem.Text = "DashDotDot";
             this.dashDotDotToolStripMenuItem.Click += new System.EventHandler(this.DashDotDotToolStripMenuItem_Click);
             // 
+            // fuguresToolStripMenuItem
+            // 
+            this.fuguresToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fuguresToolStripMenuItem.Image")));
+            this.fuguresToolStripMenuItem.Name = "fuguresToolStripMenuItem";
+            this.fuguresToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.fuguresToolStripMenuItem.Text = "Rectangle";
+            this.fuguresToolStripMenuItem.Click += new System.EventHandler(this.FuguresToolStripMenuItem_Click_1);
+            // 
+            // eclipseToolStripMenuItem
+            // 
+            this.eclipseToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eclipseToolStripMenuItem.Image")));
+            this.eclipseToolStripMenuItem.Name = "eclipseToolStripMenuItem";
+            this.eclipseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.eclipseToolStripMenuItem.Text = "Ellipse";
+            this.eclipseToolStripMenuItem.Click += new System.EventHandler(this.EclipseToolStripMenuItem_Click);
+            // 
+            // line
+            // 
+            this.line.Name = "line";
+            this.line.Size = new System.Drawing.Size(138, 22);
+            this.line.Text = "Line";
+            this.line.Click += new System.EventHandler(this.Line_Click);
+            // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.ColorToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.eclipse});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // aboutToolStripMenuItem
+            // eclipse
             // 
-            this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            this.eclipse.Image = ((System.Drawing.Image)(resources.GetObject("eclipse.Image")));
+            this.eclipse.Name = "eclipse";
+            this.eclipse.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.eclipse.Size = new System.Drawing.Size(126, 22);
+            this.eclipse.Text = "About";
+            this.eclipse.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // picDrawingSurface
             // 
@@ -249,6 +278,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(655, 44);
             this.panel1.TabIndex = 4;
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(182, 3);
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(171, 45);
+            this.trackBar2.TabIndex = 2;
+            this.trackBar2.Scroll += new System.EventHandler(this.TrackBar2_Scroll_1);
             // 
             // label1
             // 
@@ -277,6 +314,7 @@
             this.toolStripButton2,
             this.toolStripButton3,
             this.toolStripButton4,
+            this.toolStripButton6,
             this.toolStripSeparator2,
             this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
@@ -295,7 +333,7 @@
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(110, 80);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Text = "New file";
             this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // toolStripButton2
@@ -307,7 +345,7 @@
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(110, 80);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Text = "Save file";
             this.toolStripButton2.Click += new System.EventHandler(this.ToolStripButton2_Click);
             // 
             // toolStripButton3
@@ -319,7 +357,7 @@
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(110, 80);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Text = "Open file";
             this.toolStripButton3.Click += new System.EventHandler(this.ToolStripButton3_Click);
             // 
             // toolStripButton4
@@ -331,7 +369,7 @@
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(110, 80);
-            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Text = "Colors";
             this.toolStripButton4.Click += new System.EventHandler(this.ToolStripButton4_Click);
             // 
             // toolStripSeparator2
@@ -349,7 +387,7 @@
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(110, 80);
-            this.toolStripButton5.Text = "toolStripButton5";
+            this.toolStripButton5.Text = "Exit";
             this.toolStripButton5.Click += new System.EventHandler(this.ToolStripButton5_Click);
             // 
             // panel2
@@ -360,20 +398,15 @@
             this.panel2.Size = new System.Drawing.Size(680, 416);
             this.panel2.TabIndex = 6;
             // 
-            // fuguresToolStripMenuItem
+            // toolStripButton6
             // 
-            this.fuguresToolStripMenuItem.Name = "fuguresToolStripMenuItem";
-            this.fuguresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fuguresToolStripMenuItem.Text = "Fugures";
-            this.fuguresToolStripMenuItem.Click += new System.EventHandler(this.FuguresToolStripMenuItem_Click_1);
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Location = new System.Drawing.Point(182, 3);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(171, 45);
-            this.trackBar2.TabIndex = 2;
-            this.trackBar2.Scroll += new System.EventHandler(this.TrackBar2_Scroll_1);
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(108, 20);
+            this.toolStripButton6.Text = "toolStripButton6";
+            this.toolStripButton6.Click += new System.EventHandler(this.ToolStripButton6_Click);
             // 
             // Form1
             // 
@@ -392,11 +425,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDrawingSurface)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,7 +453,7 @@
         private System.Windows.Forms.ToolStripMenuItem dashDotDotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eclipse;
         private System.Windows.Forms.PictureBox picDrawingSurface;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar trackBar1;
@@ -435,6 +468,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem fuguresToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem eclipseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem line;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
     }
 }
 

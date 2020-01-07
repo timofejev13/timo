@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,6 +32,8 @@ namespace gorodnitsev_Redaktor
         int locallXO = 0;
         int locallXY = 0;
 
+        bool bucket = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -52,7 +55,7 @@ namespace gorodnitsev_Redaktor
         private void PicDrawingSurface_MouseMove(object sender, MouseEventArgs e)
         {
             label1.Text = e.X.ToString() + ", " + e.Y.ToString();
-            if (drawing)
+            if (drawing && !bucket)
             {
                 if (figuri == 0)
                 {
@@ -74,10 +77,59 @@ namespace gorodnitsev_Redaktor
             }
             
         }
+        void FloodFill(Bitmap bitmap, int x, int y, Color color)
+        {
+            BitmapData data = bitmap.LockBits(
+                new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            int[] bits = new int[data.Stride / 4 * data.Height];
+            Marshal.Copy(data.Scan0, bits, 0, bits.Length);
+
+            LinkedList<Point> check = new LinkedList<Point>();
+            int floodTo = color.ToArgb();
+            int floodFrom = bits[x + y * data.Stride / 4];
+            bits[x + y * data.Stride / 4] = floodTo;
+
+            if (floodFrom != floodTo)
+            {
+                check.AddLast(new Point(x, y));
+                while (check.Count > 0)
+                {
+                    Point cur = check.First.Value;
+                    check.RemoveFirst();
+
+                    foreach (Point off in new Point[] {
+                new Point(0, -1), new Point(0, 1),
+                new Point(-1, 0), new Point(1, 0)})
+                    {
+                        Point next = new Point(cur.X + off.X, cur.Y + off.Y);
+                        if (next.X >= 0 && next.Y >= 0 &&
+                            next.X < data.Width &&
+                            next.Y < data.Height)
+                        {
+                            if (bits[next.X + next.Y * data.Stride / 4] == floodFrom)
+                            {
+                                check.AddLast(next);
+                                bits[next.X + next.Y * data.Stride / 4] = floodTo;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Marshal.Copy(bits, 0, data.Scan0, bits.Length);
+            bitmap.UnlockBits(data);
+
+            picDrawingSurface.Image = bitmap;
+        }
 
         private void PicDrawingSurface_MouseUp(object sender, MouseEventArgs e)
         {
-            if (figuri == 1)
+            if (bucket)
+            {
+                FloodFill(new Bitmap(picDrawingSurface.Image), oldLocation.X, oldLocation.Y, historyColor);
+            }
+            else if (figuri == 1)
             {
                 Graphics g = Graphics.FromImage(picDrawingSurface.Image);
                 currentPath.AddRectangle(new Rectangle(locallX, locallY, locallXO, locallXY));
@@ -85,6 +137,25 @@ namespace gorodnitsev_Redaktor
                 oldLocation = e.Location;
                 g.Dispose();
                 picDrawingSurface.Invalidate();
+            }
+            else if(figuri == 2)
+            {
+                Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                currentPath.AddEllipse(locallX, locallY, locallXO, locallXY);
+                g.DrawPath(currentPen, currentPath);
+                oldLocation = e.Location;
+                g.Dispose();
+                picDrawingSurface.Invalidate();
+
+            }
+            else if (figuri == 3)
+            {
+                Graphics g = Graphics.FromImage(picDrawingSurface.Image);
+                g.DrawLine(currentPen, new Point(locallX, locallY),new Point(locallX+ locallXO, locallY+ locallXY));
+                oldLocation = e.Location;
+                g.Dispose();
+                picDrawingSurface.Invalidate();
+
             }
 
             History.RemoveRange(historyCounter + 1, History.Count - historyCounter - 1);
@@ -153,9 +224,7 @@ namespace gorodnitsev_Redaktor
         {
             History.Clear();
             historyCounter = 0;
-            Bitmap pic = new Bitmap(655, 416);
-            picDrawingSurface.Image = pic;
-            History.Add(new Bitmap(picDrawingSurface.Image));
+
 
             if (picDrawingSurface.Image != null)
             {
@@ -169,6 +238,9 @@ namespace gorodnitsev_Redaktor
                 }
 
             }
+            Bitmap pic = new Bitmap(655, 416);
+            picDrawingSurface.Image = pic;
+            History.Add(new Bitmap(picDrawingSurface.Image));
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -238,8 +310,7 @@ namespace gorodnitsev_Redaktor
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-            Bitmap pic = new Bitmap(655, 416);
-            picDrawingSurface.Image = pic;
+
 
             if (picDrawingSurface.Image != null)
             {
@@ -253,6 +324,8 @@ namespace gorodnitsev_Redaktor
                 }
 
             }
+            Bitmap pic = new Bitmap(655, 416);
+            picDrawingSurface.Image = pic;
         }
 
         private void ToolStripButton2_Click(object sender, EventArgs e)
@@ -337,6 +410,8 @@ namespace gorodnitsev_Redaktor
             dotToolStripMenuItem.Checked = false;
             dashDotDotToolStripMenuItem.Checked = false;
             fuguresToolStripMenuItem.Checked = false;
+            eclipse.Checked = false;
+            line.Checked = false;
             figuri = 0;
 
         }
@@ -349,6 +424,8 @@ namespace gorodnitsev_Redaktor
             dotToolStripMenuItem.Checked = true;
             dashDotDotToolStripMenuItem.Checked = false;
             fuguresToolStripMenuItem.Checked = false;
+            eclipse.Checked = false;
+            line.Checked = false;
             figuri = 0;
         }
 
@@ -360,19 +437,21 @@ namespace gorodnitsev_Redaktor
             dotToolStripMenuItem.Checked = false;
             dashDotDotToolStripMenuItem.Checked = true;
             fuguresToolStripMenuItem.Checked = false;
+            eclipse.Checked = false;
+            line.Checked = false;
             figuri = 0;
         }
 
         private void ToolStripButton4_Click(object sender, EventArgs e)
         {
-            Colors f = new Colors();
+            Colors f = new Colors(historyColor);
             f.Owner = this;
             f.ShowDialog();
         }
 
         private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Colors f = new Colors();
+            Colors f = new Colors(historyColor);
             f.Owner = this;
             f.ShowDialog();
         }
@@ -383,18 +462,53 @@ namespace gorodnitsev_Redaktor
 
         private void FuguresToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            currentPen.DashStyle = DashStyle.Dot;
+            currentPen.DashStyle = DashStyle.Solid;
 
             solidToolStripMenuItem.Checked = false;
             dotToolStripMenuItem.Checked = false;
             dashDotDotToolStripMenuItem.Checked = false;
             fuguresToolStripMenuItem.Checked = true;
+            eclipse.Checked = false;
+            line.Checked = false;
             figuri = 1;
         }
-
         private void TrackBar2_Scroll_1(object sender, EventArgs e)
         {
             picDrawingSurface.Image = Zoom(imgOriginal, trackBar2.Value);
+        }
+
+        private void EclipseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            currentPen.DashStyle = DashStyle.Solid;
+
+            solidToolStripMenuItem.Checked = false;
+            dotToolStripMenuItem.Checked = false;
+            dashDotDotToolStripMenuItem.Checked = false;
+            fuguresToolStripMenuItem.Checked = false;
+            eclipse.Checked = true;
+            line.Checked = false;
+            figuri = 2;
+        }
+
+        private void Line_Click(object sender, EventArgs e)
+        {
+            currentPen.DashStyle = DashStyle.Solid;
+
+            solidToolStripMenuItem.Checked = false;
+            dotToolStripMenuItem.Checked = false;
+            dashDotDotToolStripMenuItem.Checked = false;
+            fuguresToolStripMenuItem.Checked = false;
+            eclipse.Checked = false;
+            line.Checked = true;
+            figuri = 3;
+        }
+
+        private void ToolStripButton6_Click(object sender, EventArgs e)
+        {
+            bucket = true;
+            Colors AddRec = new Colors(historyColor);
+            AddRec.Owner = this;
+            AddRec.ShowDialog();
         }
     }
 }

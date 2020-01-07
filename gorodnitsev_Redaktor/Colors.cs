@@ -9,7 +9,7 @@ namespace gorodnitsev_Redaktor
         Color colorResult;
         Color color;
 
-        public Colors()
+        public Colors(Color historyColor)
         {
             InitializeComponent();
 
@@ -25,6 +25,10 @@ namespace gorodnitsev_Redaktor
             numeric_Green.Value = color.G;
             numeric_Blue.Value = color.B;
 
+        }
+
+        public Colors()
+        {
         }
 
         private void UpdateColor()
@@ -95,5 +99,21 @@ namespace gorodnitsev_Redaktor
         {
             Close();
         }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Scroll_Red.Value = colorDialog.Color.R;
+                Scroll_Green.Value = colorDialog.Color.G;
+                Scroll_Blue.Value = colorDialog.Color.B;
+
+                colorResult = colorDialog.Color;
+
+                UpdateColor();
+            }
+        }
+
     }
 }
